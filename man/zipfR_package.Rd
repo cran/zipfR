@@ -1,6 +1,7 @@
 \name{zipfR-package}
 \alias{zipfR-package}
 \alias{zipfR}
+\encoding{latin1}
 \docType{package}
 \title{
 
@@ -54,7 +55,7 @@ zipfR is released under the GNU General Public License
 }
 
 \author{ Stefan Evert <\email{stefan.evert@uos.de}> and Marco Baroni
-<\email{baroni@sslmit.unibo.it}>
+<\email{marco.baroni@unitn.it}>
 
 Maintainer: Stefan Evert <\email{stefan.evert@uos.de}>
 }
@@ -66,7 +67,7 @@ Maintainer: Stefan Evert <\email{stefan.evert@uos.de}>
   Baayen, R. Harald (2001). \emph{Word Frequency Distributions.} Kluwer,
   Dordrecht.
 
-  Baroni, Marco (to appear) Distributions in text. To appear in: A.
+  Baroni, Marco (to appear). Distributions in text. To appear in: A.
   Lüdeling and M. Kytö (eds.), \emph{Corpus Linguistics. An
   International Handbook}, chapter 39. Mouton de Gruyter, Berlin.
 

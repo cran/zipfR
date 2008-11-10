@@ -24,6 +24,7 @@ export(tdlnre, ltdlnre, tplnre, tqlnre)
 export(dlnre, ldlnre, plnre, qlnre)
 export(rlnre)
 
+export(read.multiple.objects)
 
 S3method(plot, spc)
 S3method(plot, vgc)

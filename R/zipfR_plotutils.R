@@ -20,7 +20,7 @@ zipfR.begin.plot <- function (device=zipfR.par("device"), filename="",
            onefile=FALSE, horizontal=FALSE, paper="special"),
          pdf = pdf(file=paste(filename, "pdf", sep="."),
            width=width, height=height, bg=bg, pointsize=pointsize,
-           onefile=FALSE, horizontal=TRUE, paper="special"))
+           onefile=FALSE, paper="special"))
 
   ## record information about active device in private .PLOT environment
   .PLOT$device <- device

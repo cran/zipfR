@@ -22,7 +22,7 @@
 
 \usage{
 
-  vgc(N, V, Vm=NULL, VV=NULL, VVm=NULL, expected=FALSE)
+  vgc(N, V, Vm=NULL, VV=NULL, VVm=NULL, expected=FALSE, check=TRUE)
 
 }
 
@@ -52,6 +52,12 @@
 
   \item{expected}{if \code{TRUE}, the object represents an interpolated
     or expected VGC (for informational purposes only)}
+
+  \item{check}{by default, various sanity checks are performed on the
+    data supplied to the \code{spc} constructor.  Specify
+    \code{check=FALSE} to skip these sanity test, e.g. when
+    automatically processing data from external programs that may be
+    numerically unstable.}
 
 }
 

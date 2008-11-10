@@ -1,5 +1,21 @@
 RECENT CHANGES to the 'zipfR' package:
 
+Version 0.6-5
+
+ - moved development to SVN repository on R-Forge
+
+Version 0.6-4
+
+ - various bug fixes and minor improvements
+ - improved robustness and tolerance for rounding errors in expected frequency spectra
+
+Version 0.6-2
+
+ - added function read.multiple.objects to do just that
+
+Version 0.6-1
+
+ - bugfix: read.vgc() died on input files without at least a V1 column
 
 Version 0.6-0
 

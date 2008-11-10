@@ -13,7 +13,7 @@
 
 \usage{
 
-  lnre.spc(model, N, variances=FALSE, m.max=100)
+  lnre.spc(model, N=NULL, variances=FALSE, m.max=100)
 
 }
 
@@ -23,7 +23,8 @@
     representing a LNRE model}
 
   \item{N}{a single positive integer, specifying the sample size \eqn{N}
-    for which the expected frequency spectrum is calculated}
+    for which the expected frequency spectrum is calculated (defaults to
+    same sample size as used for estimating the model)}
 
   \item{variances}{if \code{TRUE}, include variances for the spectrum
     elements in the \code{spc} object}

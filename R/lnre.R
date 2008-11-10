@@ -23,7 +23,6 @@ lnre <- function (type=c("zm", "fzm", "gigp"),
                           linear=lnre.cost.linear,
                           smooth.linear=lnre.cost.smooth.linear,
                           mse=lnre.cost.mse,
-                          log=lnre.cost.log,
                           exact=lnre.cost.mse) # use MSE cost with adjusted value for m.max
 
   constructor <- switch(type,           # select appropriate constructor function

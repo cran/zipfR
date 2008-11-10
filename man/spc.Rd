@@ -58,6 +58,7 @@
     represents expected values \eqn{E[V_m]} of the class sizes according
     to some LNRE model (this is automatically triggered when the
     \code{VVm} argument is specified).}
+
 }
 
 \value{

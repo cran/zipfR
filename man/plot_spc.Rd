@@ -14,7 +14,7 @@
 
   \method{plot}{spc}(x, y, ...,
        m.max=if (log=="") 15 else 50, 
-       log=c("", "x", "y", "xy"), conf.level=.95,
+       log="", conf.level=.95,
        bw=zipfR.par("bw"), points=TRUE,
        xlim=NULL, ylim=NULL,
        xlab="m", ylab="V_m", legend=NULL,
@@ -35,8 +35,9 @@
   \item{log}{a character string specifying the axis or axes for which
     logarithmic scale is to be used (\code{"x"}, \code{"y"}, or
     \code{"xy"}), similar to the \code{log} argument of
-    \code{\link{plot.default}}.  By default, both axes use linear scale
-    (also see "Details" below).}
+    \code{\link{plot.default}}.  By default, a barplot on linear scale
+    is displayed.  Use \code{log=""} to show non-logarithmic
+    points-and-lines plot (also see "Details" below).}
 
   \item{conf.level}{confidence level for confidence intervals in
     logarithmic plots (see "Details" below).  The default value of
@@ -77,11 +78,13 @@
 
 \details{
 
-  If both axes use linear scale (\code{log=""}), the frequency spectrum
-  or spectra are represented as a barplot.  For any other value of the
-  \code{log} parameter, they are shown either as lines in different
+  By default, the frequency spectrum or spectra are represented as a
+  barplot, with both axes using linear scale.  If the \code{log}
+  parameter is given, the spectra are shown either as lines in different
   styles (\code{points=FALSE}) or as overplotted points and lines
-  (\code{point=TRUE}).
+  (\code{point=TRUE}).  The value of \code{log} specifies which axes
+  should use logarithmic scale (specify \code{log=""} for a
+  points-and-lines plot on linear scale).
 
   In y-logarithmic plots, frequency classes with \eqn{V_m = 0} are drawn
   outside the plot region (below the bottom margin) rather than skipped.

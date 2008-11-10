@@ -26,9 +26,10 @@ read.vgc <- function (file)
   if (variances && (m.max.v != m.max))
     stop("variances 'VVm' must be given for exactly the same frequency classes as expectations 'Vm'")
   
-  Vm.list <- tmp[ , paste("V", 1:m.max, sep="")]
+  Vm.list <- if (m.max > 0) tmp[ paste("V", 1:m.max, sep="") ] else NULL
+  ## single index -> data.frame interpreted as list -> always returns list, even for m.max=1
   if (variances) {
-    VVm.list <- tmp[ , paste("VV", 1:m.max, sep="")]
+    VVm.list <- if (m.max > 0) tmp[ paste("VV", 1:m.max, sep="") ] else NULL
     vgc(N=tmp$N, V=tmp$V, VV=tmp$VV, Vm=Vm.list, VVm=VVm.list)
   }
   else {

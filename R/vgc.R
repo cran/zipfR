@@ -1,18 +1,22 @@
-vgc <- function (N, V, Vm=NULL, VV=NULL, VVm=NULL, expected=FALSE)
+vgc <- function (N, V, Vm=NULL, VV=NULL, VVm=NULL, expected=FALSE, check=TRUE)
 {
   if (length(N) != length(V)) stop("'N' and 'V' must have the same length")
   if (any(N < 0)) stop("sample sizes 'N' must be non-negative integers")
-  if (any(diff(N) < 0)) stop("sample sizes 'N' must be increasing")
-  if (any(V < 0)) stop("vocabulary sizes 'V' must be non-negative")
-  if (any(diff(V) < 0)) stop("inconsistent decrease in vocabulary size 'V'")
+  if (check) {
+    if (any(diff(N) < 0)) stop("sample sizes 'N' must be increasing")
+    if (any(V < 0)) stop("vocabulary sizes 'V' must be non-negative")
+    if (any(diff(V) < 0)) stop("inconsistent decrease in vocabulary size 'V'")
+  }
 
-  if (!missing(Vm) && !is.list(Vm)) Vm <- list(Vm) # allow V1 to be specified as plain vector
+  if (!missing(Vm) && !is.list(Vm)) Vm <- as.list(Vm) # allow V1 to be specified as plain vector
   m.max <- length(Vm)                   # m.max = 0 if Vm is not specified
   if (m.max > 9) stop("at most 9 spectrum elements allowed in 'Vm'")
   for (v.m in Vm) {
     if (!(is.numeric(v.m))) stop("elements of 'Vm' must be numeric vectors")
-    if (any(v.m < 0)) stop("spectrum elements in 'Vm' must be non-negative")
     if (length(v.m) != length(N)) stop("vectors in 'Vm' must have the same length as 'N' and 'V'")
+    if (check) {
+      if (any(v.m < 0)) stop("spectrum elements in 'Vm' must be non-negative")
+    }
   }
 
   variances <- !missing(VV)
@@ -24,8 +28,10 @@ vgc <- function (N, V, Vm=NULL, VV=NULL, VVm=NULL, expected=FALSE)
     stop("variance 'VV' missing (but variances 'VVm' are specified)")
   for (vv.m in VVm) {
     if (!is.numeric(vv.m)) stop("elements of 'VVm' must be numeric vectors")
-    if (any(vv.m < 0)) stop("variances in 'VVm' must be non-negative")
     if (length(vv.m) != length(N)) stop("vectors in 'VVm' must have the same length as 'N' and 'V'")
+    if (check) {
+      if (any(vv.m < 0)) stop("variances in 'VVm' must be non-negative")
+    }
   }
   
   vgc <- data.frame(N=N, V=V)

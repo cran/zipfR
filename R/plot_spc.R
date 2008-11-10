@@ -1,6 +1,6 @@
 plot.spc <- function(x, y, ...,                                           
                      m.max=if (log=="") 15 else 50,
-                     log=c("", "x", "y", "xy"), conf.level=.95,
+                     log="", conf.level=.95,
                      bw=zipfR.par("bw"), points=TRUE,
                      xlim=NULL, ylim=NULL,
                      xlab="m", ylab="V_m", legend=NULL,
@@ -15,7 +15,7 @@ plot.spc <- function(x, y, ...,
   n.spc <- length(spectra)
   
   ## check other arguments & collect some statistics 
-  log <- match.arg(log)
+  if (! (log %in% c("", "x", "y", "xy"))) stop("allowed values for 'log' argument are '', 'x', 'y' and 'xy'")
   V.max <- max(sapply(spectra, function (.S) max(Vm(.S, 1:m.max))))
   if (!missing(legend) && length(legend) != n.spc)
     stop("'legend' argument must be character or expression vector of same length as number of spectra")
@@ -47,14 +47,14 @@ plot.spc <- function(x, y, ...,
   if (missing(xlim)) xlim <- c(1, m.max)
   if (missing(ylim)) ylim <- if (y.log) c(0.1, 2 * V.max) else c(0, 1.05 * V.max)
 
-  ## barplot for non-logarithmic axes (log="")
-  if (log=="") {
+  ## default: non-logarithmic barplot (log parameter not specified)
+  if (missing(log)) {
     my.data <- sapply(spectra, function (.S) Vm(.S, 1:m.max))
     barplot(t(my.data), beside=TRUE, ylim=ylim,
-            col=barcol[1:n.spc],
+            col=barcol[1:n.spc], names.arg = 1:m.max,
             xlab=xlab, ylab=ylab, main=main, legend=legend)
   }
-  ## lines or points+lines for any kind of logarithmic plot
+  ## lines or points+lines for any kind of logarithmic plot (log="" for non-logarithmic scale)
   else {
     plot(1, 1, type="n", xlim=xlim, ylim=ylim, log=log, yaxs="i",
          xlab=xlab, ylab=ylab, main=main)
