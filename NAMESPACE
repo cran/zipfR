@@ -16,17 +16,22 @@ export(lnre.spc, lnre.vgc)
 
 export(N, V, Vm, EV, EVm, VV, VVm)
 
-export(zipfR.par, zipfR.legend)
+export(zipfR.par)
 export(zipfR.begin.plot, zipfR.end.plot, zipfR.pick.device)
-export(plot.spc, plot.vgc)
+# export(plot.spc, plot.tfl, plot.vgc)
 
 export(tdlnre, ltdlnre, tplnre, tqlnre)
 export(dlnre, ldlnre, plnre, qlnre)
 export(rlnre)
+# export(postdlnre, postldlnre, postplnre, postqlnre)
+# export(gtlnre)
 
 export(read.multiple.objects)
+export(lnre.bootstrap)
+
 
 S3method(plot, spc)
+S3method(plot, tfl)
 S3method(plot, vgc)
 
 S3method(print, spc)
@@ -38,6 +43,8 @@ S3method(summary, spc)
 S3method(summary, tfl)
 S3method(summary, vgc)
 S3method(summary, lnre)
+
+S3method(confint, lnre)
 
 S3method(N, spc)
 S3method(N, tfl)
@@ -97,3 +104,13 @@ S3method(qlnre, lnre.fzm)
 S3method(ltdlnre, lnre)
 S3method(ldlnre, lnre)
 S3method(rlnre, lnre)
+
+# S3method(postdlnre, lnre.zm)
+# S3method(postdlnre, lnre.fzm)
+# S3method(postdlnre, lnre.gigp)
+
+# S3method(postplnre, lnre.zm)
+# S3method(postplnre, lnre.fzm)
+
+# S3method(postqlnre, lnre.zm)
+# S3method(postqlnre, lnre.fzm)

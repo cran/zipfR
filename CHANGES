@@ -1,32 +1,61 @@
+TODO:
+
+  - write/check documentation for bootstrapping and confidence intervals
+  - implement & document robust boostrapping confidence intervals (confint.lnre)
+  - write documentation for new posterior, Good-Turing, etc.
+  - complete implementation and documentation of posterior densities etc.
+  - auto.gzfile() helper no longer needed -> remove
+  - add encoding options to read.tfl
+
 RECENT CHANGES to the 'zipfR' package:
+
+  - posterior distribution for LNRE model as Bayesian prior, with density function
+    postdlnre(), including log-transformed version postldlnre(), as well as
+    cumulative probability postplnre() and quantiles postqlnre() where available
+  - Good-Turing estimates with gtlnre()
+  - NB: these functions are only partially implemented so far
+  
+Version 0.6-6
+
+  - interim release for compliance with new, stricter CRAN requirements
+  - Zipf-ranking plots for type-frequency lists (of class "tfl")
+  - file I/O automatically compresses/decompresses ".gz" files in functions
+    read.tfl(), read.spc(), read.vgc(), write.tfl(), write.spc(), write.vgc()
+  - dropped support for very old R versions (before 2.3.1 or so),
+    where read.delim() does not accept comment.char= option; now requires 2.10.1+
+  - removed zipfR.legend() function since standard legend() now offers the same
+    convenient placement options
+  - added citation details (file inst/CITATION), which can be displayed with
+    citation(package="zipfR")
+  - upgraded to GPL v3
 
 Version 0.6-5
 
- - moved development to SVN repository on R-Forge
+  - moved development to SVN repository on R-Forge
 
 Version 0.6-4
 
- - various bug fixes and minor improvements
- - improved robustness and tolerance for rounding errors in expected frequency spectra
+  - various bug fixes and minor improvements
+  - improved robustness and tolerance for rounding errors in expected frequency spectra
 
 Version 0.6-2
 
- - added function read.multiple.objects to do just that
+  - added function read.multiple.objects to do just that
 
 Version 0.6-1
 
- - bugfix: read.vgc() died on input files without at least a V1 column
+  - bugfix: read.vgc() died on input files without at least a V1 column
 
 Version 0.6-0
 
- - first public release on CRAN
- - improved parameter estimation, can be fine-tuned by users 
-   with choice of cost functions and minimization algorithms
- - default settings work well for most data sets
- - minor bug fixes and improved documentation
- - updated version of tutorial
+  - first public release on CRAN
+  - improved parameter estimation, can be fine-tuned by users 
+    with choice of cost functions and minimization algorithms
+  - default settings work well for most data sets
+  - minor bug fixes and improved documentation
+  - updated version of tutorial
 
 
 Version 0.5-0
 
- - first beta release of the zipfR toolkit
+  - first beta release of the zipfR toolkit
