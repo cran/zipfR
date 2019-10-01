@@ -1,5 +1,5 @@
-importFrom(stats, density, median, na.omit, nlm, optim, sd, uniroot)
-importFrom(stats, dbinom, rhyper, runif, qnorm, pchisq, pbeta, qbeta, pgamma, qgamma)
+importFrom(stats, density, median, sd, IQR, na.omit, nlm, optim, uniroot)
+importFrom(stats, dbinom, rhyper, runif, rbinom, rmultinom, rnorm, qnorm, pchisq, pbeta, qbeta, pgamma, qgamma)
 importFrom(utils, read.delim, setTxtProgressBar, txtProgressBar, write.table)
 importFrom(grDevices, dev.cur, dev.list, dev.new, dev.off, dev.set, pdf, png, postscript)
 importFrom(graphics, abline, barplot, hist, lines, par, plot, points, segments)
@@ -25,17 +25,16 @@ export(N, V, Vm, EV, EVm, VV, VVm)
 
 export(zipfR.par)
 export(zipfR.begin.plot, zipfR.end.plot, zipfR.pick.device)
-# export(plot.spc, plot.tfl, plot.vgc)
 
 export(tdlnre, ltdlnre, tplnre, tqlnre)
 export(dlnre, ldlnre, plnre, qlnre)
 export(rlnre)
-# export(postdlnre, postldlnre, postplnre, postqlnre)
-# export(gtlnre)
+export(postdlnre, postldlnre, postplnre, postqlnre)
 
 export(read.multiple.objects)
-export(lnre.bootstrap)
+export(lnre.bootstrap, bootstrap.confint)
 
+export(productivity.measures)
 
 S3method(plot, spc)
 S3method(plot, tfl)
@@ -50,6 +49,8 @@ S3method(summary, spc)
 S3method(summary, tfl)
 S3method(summary, vgc)
 S3method(summary, lnre)
+
+S3method(merge, tfl)
 
 S3method(confint, lnre)
 
@@ -112,12 +113,16 @@ S3method(ltdlnre, lnre)
 S3method(ldlnre, lnre)
 S3method(rlnre, lnre)
 
-# S3method(postdlnre, lnre.zm)
-# S3method(postdlnre, lnre.fzm)
-# S3method(postdlnre, lnre.gigp)
+S3method(postdlnre, lnre)
+S3method(postldlnre, lnre)
 
 # S3method(postplnre, lnre.zm)
 # S3method(postplnre, lnre.fzm)
 
 # S3method(postqlnre, lnre.zm)
 # S3method(postqlnre, lnre.fzm)
+
+S3method(productivity.measures, default)
+S3method(productivity.measures, tfl)
+S3method(productivity.measures, spc)
+S3method(productivity.measures, vgc)

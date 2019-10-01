@@ -1,10 +1,33 @@
 RECENT CHANGES to the 'zipfR' package:
 
-Work in progress:
-  - posterior distribution for LNRE model as Bayesian prior, with density function
-    postdlnre(), including log-transformed version postldlnre(), as well as
-    cumulative probability postplnre() and quantiles postqlnre() where available
+Upcoming:
+
+  - posterior distribution functions using LNRE models as a Bayesian prior,
+    with type density postdlnre(), log-transformed density postldlnre(), as well as
+    cumulative probability postplnre() and quantiles postqlnre() for selected models
+  - parallelization of lnre.bootstrap(), using fork on Unix-like platforms or with
+    a properly initialized snow cluster
   - Good-Turing estimates with gtlnre()
+
+Version 0.7:
+
+  - default minimization algorithm changed to "Nelder-Mead", since "Custom" often
+    failed to converge on problematic data sets
+  - new default cost function "gof" based on the multivariate chi-squared statistic,
+    which is closely related to maximum likelihood estimation
+  - parameter optimization now performs multiple runs with different random start
+    values by default, improving robustness of the parameter estimation
+  - lnre.bootstrap() implements parametric bootstrapping from an LNRE model, and
+    the function bootstrap.confint() provides robust estimates of confidence limits
+  - rlnre() can directly generate type-frequency lists instead of token vectors, 
+    which is much more efficient for large samples (and essential for large-scale
+    bootstrapping experiments)
+  - bootstrapped confidence intervals for model parameters can be obtained with
+    confint() applied to an LNRE model object with bootstrap replicates
+  - compute various productivity measures from observed frequency spectrum,
+    type-frequency list, vocabulary growth curve or token vector
+  - merge() method for two or more type frequency lists
+  - new example data sets from Evert & Luedeling (2001) and Baayen (2001)
 
 Version 0.6-10
 
