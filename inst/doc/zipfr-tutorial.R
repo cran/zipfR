@@ -1,5 +1,4 @@
 ### R code from vignette source 'zipfr-tutorial.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: zipfr-tutorial.Rnw:48-49

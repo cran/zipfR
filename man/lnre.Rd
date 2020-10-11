@@ -18,7 +18,7 @@
        m.max=15, runs=5,
        method=c("Nelder-Mead", "NLM", "BFGS", "SANN", "Custom"),
        exact=TRUE, sampling=c("Poisson", "multinomial"),
-       bootstrap=0, verbose=TRUE,
+       bootstrap=0, verbose=TRUE, parallel=1L,
        \dots)
 
 }
@@ -36,7 +36,8 @@
   \item{cost}{cost function for measuring the "distance" between
     observed and expected vocabulary size and frequency spectrum.
     Parameters are estimated by minimizing this cost function (see "Cost
-    Functions" below for a listing of available cost functions).}
+    Functions" below for a list of built-in cost functions and details
+    on user-defined cost functions).}
   
   \item{m.max}{number of spectrum elements considered by the cost
     function (see "Cost Functions" below for more information). If
@@ -76,6 +77,9 @@
     time-consuming and should not be used if the underlying sample size
     is very large (roughly, more than 1 million tokens).  See
     \code{\link{lnre.bootstrap}} for further information and warnings.}
+
+  \item{parallel}{whether to use parallelisation for the bootstrapping procedure
+    (highly recommended). See \code{\link{lnre.bootstrap}} for details.}
 
   \item{verbose}{if \code{TRUE}, a progress bar will be shown in the R console
     during the bootstrapping procedure}
@@ -205,6 +209,11 @@
 
   }
   
+  Alternatively a user-defined cost function can be passed as a function object
+  with signature `cost(model, spc, m.max)`, which compares the LNRE model `model`
+  against the observed frequency spectrum `spc` and returns a cost value
+  (i.e. lower cost indicates a better fit).
+  
 }
 
 \section{Minimization Algorithms}{
@@ -274,7 +283,8 @@
   \code{\link{lnre.vgc}}, \code{\link{EV}}, \code{\link{EVm}},
   \code{\link{VV}}, \code{\link{VVm}}.  Suitable implementations of the
   \code{\link{print}} and \code{\link{summary}} methods are also
-  provided (see \code{\link{print.lnre}} for details).  Note that the
+  provided (see \code{\link{print.lnre}} for details), as well as for
+  plotting (see \code{\link{plot.lnre}}).  Note that the
   methods \code{\link{N}}, \code{\link{V}} and \code{\link{Vm}} can be
   applied to LNRE models with estimated parameters and return
   information about the observed frequency spectrum used for parameter
@@ -304,7 +314,6 @@
 \keyword{ models }
 
 \examples{
-
 ## load Dickens dataset
 data(Dickens.spc)
 
@@ -378,5 +387,15 @@ lnre.spc(m, N=1000, m.max=10)
 m <- lnre("gigp", gamma=-.5, B=.01, C=.01)
 lnre.spc(m, N=1000, m.max=10)
 
+## bootstrapped confidence intervals for model parameters
+\dontrun{
+model <- lnre("fzm", spc=BrownAdj.spc, bootstrap=40)
+confint(model, "alpha") # Zipf slope
+confint(model, "S")     # population diversity
+confint(model, "S", method="normal") # Gaussian approx works well in this case
+
+## speed up with parallelisation (see ?lnre.bootstrap for more information)
+model <- lnre("fzm", spc=BrownAdj.spc, bootstrap=40, 
+              parallel=8) # on Linux / MacOS with 8 available cores}
 }
 

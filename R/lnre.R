@@ -4,7 +4,7 @@ lnre <- function (type=c("zm", "fzm", "gigp"),
                   m.max=15, runs=5,
                   method=c("Nelder-Mead", "NLM", "BFGS", "SANN", "Custom"),
                   exact=TRUE, sampling=c("Poisson", "multinomial"),
-                  bootstrap=0, verbose=TRUE,
+                  bootstrap=0, verbose=TRUE, parallel=1L,
                   ...)
 {
   type <- match.arg(type)
@@ -12,21 +12,26 @@ lnre <- function (type=c("zm", "fzm", "gigp"),
   user.param <- list(...)               # model parameters passed by user
   user.pnames <- names(user.param)
   method <- match.arg(method)
-  cost <- match.arg(cost)
   
   if (sampling == "multinomial") {
     warning("multinomial sampling not yet implemented, falling back to Poisson sampling")
     sampling <- "Poisson"
   }
 
-  cost.function <- switch(cost,         # implementation of chosen cost function
-                          gof=lnre.cost.gof,
-                          chisq=lnre.cost.chisq,
-                          linear=lnre.cost.linear,
-                          smooth.linear=lnre.cost.smooth.linear,
-                          mse=lnre.cost.mse,
-                          exact=lnre.cost.mse, # use MSE cost with adjusted value for m.max
-                          stop("internal error - can't find suitable cost function"))
+  if (!is.function(cost)) {
+    cost <- match.arg(cost)
+    cost.function <- switch(cost,         # implementation of chosen cost function
+                            gof=lnre.cost.gof,
+                            chisq=lnre.cost.chisq,
+                            linear=lnre.cost.linear,
+                            smooth.linear=lnre.cost.smooth.linear,
+                            mse=lnre.cost.mse,
+                            exact=lnre.cost.mse, # use MSE cost with adjusted value for m.max
+                            stop("internal error - can't find suitable cost function"))
+  } else {
+    cost.function <- cost
+    cost <- "User"
+  }
 
   constructor <- switch(type,           # select appropriate constructor function
                         zm = lnre.zm,
@@ -34,7 +39,7 @@ lnre <- function (type=c("zm", "fzm", "gigp"),
                         gigp = lnre.gigp,
                         stop("internal error - can't find suitable LNRE model constructor"))
 
-  model <- constructor(param=user.param) # initialize model with user-specifid parameter values
+  model <- constructor(param=user.param) # initialize model with user-specified parameter values
   model$exact <- exact
   model$multinomial <- sampling == "multinomial"
   
@@ -81,7 +86,7 @@ lnre <- function (type=c("zm", "fzm", "gigp"),
     
     if (bootstrap > 0) {
       model$bootstrap <- lnre.bootstrap(
-        model, N(spc), ESTIMATOR=lnre, STATISTIC=identity, replicates=bootstrap, simplify=FALSE, verbose=verbose,
+        model, N(spc), ESTIMATOR=lnre, STATISTIC=identity, replicates=bootstrap, simplify=FALSE, verbose=verbose, parallel=parallel,
         type=type, cost=cost, m.max=m.max, method=method, exact=exact, sampling=sampling, debug=FALSE, ...)
     }
   }

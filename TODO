@@ -1,23 +1,31 @@
-For release 0.7:
-  - implement further "lexical constants" as productivity measures, with improved documentation
-  - also include measures that require token vector (such as MTLD)?
-  - add code examples for lnre.bootstrap() (once implementation of confint estimators and productivity measures is complete)
-  - add examples for productivity.measures()
+Upcoming:
+  - subset() methods for all basic data structures, returnig object of appropriate class
+    - for TFL and SPC as wrappers around data.frame() subset; document to use these instead of [] indexing
+    - for VGCs: should also support reducing to certain number of steps or approximate given N value
+    - perhaps also define head() methods that do someting sensible or throw an error
+  - posterior distribution functions using LNRE models as a Bayesian prior,
+    with type density postdlnre(), log-transformed density postldlnre(), as well as
+    cumulative probability postplnre() and quantiles postqlnre() for selected models
+    - complete implementation of posterior type distributions for ZM and fZM models (after writing down the mathematical equations precisely)
+    - custom code for posterior density, extended to m=0 for models with finite S
+  - Good-Turing estimates with gtlnre()
 
 Further tasks:  
+  - implement MTLD and "rolling" type counts (for MATTR) separately; doesn't fit in API for productivity measures
+    - written in C for reasonable efficiency; using factor representation and pre-allocated count array seems appropriate
+    - but means that we need to write kludgy interface code or pull in expensive Rcpp dependency
+  - consider mixture models
+    - two or more LNRE models with specified mixing factors
+    - parameter estimation may become quite tricky
+    - mixture of LNRE model with finite distribution (for lexicalised types) would be interesting
+    - alternative: special extension for lexicalised types, piecewise Zipf models
+  - reconsider parameter estimation: can we include top of Zipf ranking?
   - revise all built-in data sets
     - update internal format (e.g. avoid factors, make N numeric rather than integer, etc) so they are identical after round-trip through disk file
     - convert all factors (for types) to character
     - verify that encodings for non-ASCII data are set appropriately
     - save with xz compression, especially for larger data sets
     - but make sure to use version=2 so the package is still compatible with R < 3.5.0
-  - implement lnre.productivity.measures()
-    - empirical bootstrap estimates should be fairly easy
-    - approximate expectation and variance estimates where the mathematics can be worked out
-    - don't forget to remove from .Rbuildignore then!
-  - complete implementation of posterior type distributions for ZM and fZM models (after writing down the mathematical equations precisely)
-  - custom code for posterior density, extended to m=0 for models with finite S
-  - model-based Good-Turing estimates with function gtlnre()
   - improve performance of sample.tfl / zipfR.tflsplit with rmvhyper (from package extraDistr)?
     - adds dependency on a heavy Rcpp-based package only because of a rarely-used function
     - alternative: re-implement incremental splitting procedure with rhyper() in C
